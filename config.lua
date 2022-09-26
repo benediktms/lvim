@@ -11,7 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "tokyonight"
+lvim.colorscheme = "darkplus"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 vim.opt.relativenumber = true
@@ -63,6 +63,13 @@ lvim.builtin.which_key.mappings["t"] = {
 lvim.builtin.which_key.mappings["m"] = {
 	name = "Minimap",
 	t = { "<cmd>MinimapToggle<cr>", "Toggle code minimap" },
+}
+
+lvim.builtin.which_key.vmappings["s"] = {
+	name = "Sort",
+	a = { "<cmd>'<, '>%sort<cr>", "ASC" },
+	d = { "<cmd>'<, '>%sort!<cr>", "DESC" },
+	n = { "<cmd>'<, '>%sort n<cr>", "DESC" },
 }
 
 -- TODO: User Config for predefined plugins
@@ -149,7 +156,7 @@ formatters.setup({
 		-- filetypes = { "typescript", "typescriptreact" },
 	},
 	{ command = "stylua" },
-	{ command = "rustfmt" },
+	{ command = "rustfmt", extra_args = { "--edition", "2018" } },
 })
 
 -- -- set additional linters
@@ -175,7 +182,6 @@ linters.setup({
 
 -- Additional Plugins
 lvim.plugins = {
-	{ "folke/tokyonight.nvim" },
 	{
 		"folke/trouble.nvim",
 		cmd = "TroubleToggle",
@@ -193,19 +199,9 @@ lvim.plugins = {
 			vim.cmd("let g:minimap_auto_start_win_enter = 1")
 		end,
 	},
-	{
-		"windwp/nvim-ts-autotag",
-		config = function()
-			require("nvim-ts-autotag").setup()
-		end,
-	},
-	{
-		"JoosepAlviste/nvim-ts-context-commentstring",
-		event = "BufRead",
-	},
-	{
-		"p00f/nvim-ts-rainbow",
-	},
+	-- {
+	-- 	"p00f/nvim-ts-rainbow",
+	-- },
 	{
 		"romgrk/nvim-treesitter-context",
 		config = function()
@@ -226,6 +222,7 @@ lvim.plugins = {
 						"struct",
 						"impl",
 						"fn",
+						"local",
 					},
 				},
 			})
