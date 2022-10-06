@@ -199,9 +199,6 @@ lvim.plugins = {
 			vim.cmd("let g:minimap_auto_start_win_enter = 1")
 		end,
 	},
-	-- {
-	-- 	"p00f/nvim-ts-rainbow",
-	-- },
 	{
 		"romgrk/nvim-treesitter-context",
 		config = function()
@@ -228,12 +225,23 @@ lvim.plugins = {
 			})
 		end,
 	},
+	{ "tpope/vim-repeat" },
+	{ "ggandor/lightspeed.nvim" },
 }
 
 lvim.builtin.treesitter.rainbow.enable = true
 
--- Autocommands (https://neovim.io/doc/user/autocmd.html)
+vim.api.nvim_exec(
+	[[
+  augroup telescope
+      autocmd!
+      autocmd FileType TelescopePrompt inoremap <buffer> <silent> <C-r> <C-r>
+  augroup END]],
+	false
+)
+
 -- vim.api.nvim_create_autocmd("BufEnter", {
+-- Autocommands (https://neovim.io/doc/user/autocmd.html)
 --   pattern = { "*.json", "*.jsonc" },
 --   -- enable wrap mode for json files only
 --   command = "setlocal wrap",
