@@ -51,7 +51,7 @@ lvim.builtin.telescope.defaults.mappings = {
 -- Use which-key to add extra bindings with the leader-key prefix
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["t"] = {
-	name = "+Trouble",
+	name = "Trouble",
 	r = { "<cmd>Trouble lsp_references<cr>", "References" },
 	f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
 	d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
@@ -60,9 +60,10 @@ lvim.builtin.which_key.mappings["t"] = {
 	w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
 }
 
-lvim.builtin.which_key.mappings["m"] = {
-	name = "Minimap",
+lvim.builtin.which_key.mappings["o"] = {
+	name = "Other",
 	t = { "<cmd>MinimapToggle<cr>", "Toggle code minimap" },
+	m = { "<cmd>Glow<cr>", "Preview markdown file in glow" },
 }
 
 lvim.builtin.which_key.vmappings["s"] = {
@@ -76,7 +77,6 @@ lvim.builtin.which_key.vmappings["s"] = {
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
@@ -220,13 +220,26 @@ lvim.plugins = {
 						"impl",
 						"fn",
 						"local",
+						"property",
 					},
 				},
 			})
 		end,
 	},
 	{ "tpope/vim-repeat" },
-	{ "ggandor/lightspeed.nvim" },
+	{
+		"phaazon/hop.nvim",
+		event = "BufRead",
+		config = function()
+			require("hop").setup()
+			vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
+			vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
+		end,
+	},
+	{
+		"npxbr/glow.nvim",
+		ft = { "markdown" },
+	},
 }
 
 lvim.builtin.treesitter.rainbow.enable = true
@@ -236,7 +249,8 @@ vim.api.nvim_exec(
   augroup telescope
       autocmd!
       autocmd FileType TelescopePrompt inoremap <buffer> <silent> <C-r> <C-r>
-  augroup END]],
+  augroup END
+  ]],
 	false
 )
 
