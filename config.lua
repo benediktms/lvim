@@ -11,11 +11,14 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "darkplus"
+-- lvim.colorscheme = "darkplus"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 vim.opt.relativenumber = true
 vim.opt.background = "dark"
+
+vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+vim.opt.grepformat = "%f:%l:%c:%m"
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -231,9 +234,23 @@ lvim.plugins = {
 		"phaazon/hop.nvim",
 		event = "BufRead",
 		config = function()
-			require("hop").setup()
-			vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
-			vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
+			local hop = require("hop")
+			hop.setup()
+			local directions = require("hop.hint").HintDirection
+			vim.keymap.set("", "f", function()
+				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+			end, { remap = true })
+			vim.keymap.set("", "F", function()
+				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+			end, { remap = true })
+			vim.keymap.set("", "t", function()
+				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+			end, { remap = true })
+			vim.keymap.set("", "T", function()
+				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+			end, { remap = true })
+			-- vim.api.nvim_set_keymap("n", "S", ":HopChar2<cr>", { silent = true })
+			vim.api.nvim_set_keymap("n", "s", ":HopWord<cr>", { silent = true })
 		end,
 	},
 	{
@@ -243,6 +260,7 @@ lvim.plugins = {
 }
 
 lvim.builtin.treesitter.rainbow.enable = true
+lvim.builtin.treesitter.rainbow.max_file_lines = 5000
 
 vim.api.nvim_exec(
 	[[
