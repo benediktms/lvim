@@ -7,6 +7,17 @@ a global executable or a path to
 an executable
 ]]
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
+-- helpers
+
+-- @param str the string to be trimmed
+local function trunc(str)
+	local length = #str
+	local max_len = 25
+	if length >= max_len then
+		return str:sub(1, max_len) .. "..."
+	end
+	return str
+end
 
 -- general
 lvim.log.level = "warn"
@@ -103,6 +114,20 @@ lvim.builtin.treesitter.ensure_installed = {
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
+lvim.builtin.lualine.sections.lualine_b = {
+	{
+		"branch",
+		fmt = trunc,
+		icon = {
+			lvim.icons.git.Branch,
+			color = { fg = "orange" },
+		},
+		color = { gui = "bold", fg = "#bbc2cf" },
+	},
+}
+lvim.builtin.lualine.sections.lualine_c = {
+	{ "filename", file_status = true, path = 1 },
+}
 -- generic LSP settings
 
 -- -- make sure server will always be installed even if the server is in skipped_servers list
@@ -229,26 +254,25 @@ lvim.plugins = {
 			})
 		end,
 	},
-	{ "tpope/vim-repeat" },
 	{
 		"phaazon/hop.nvim",
 		event = "BufRead",
 		config = function()
 			local hop = require("hop")
 			hop.setup()
-			local directions = require("hop.hint").HintDirection
-			vim.keymap.set("", "f", function()
-				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-			end, { remap = true })
-			vim.keymap.set("", "F", function()
-				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-			end, { remap = true })
-			vim.keymap.set("", "t", function()
-				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-			end, { remap = true })
-			vim.keymap.set("", "T", function()
-				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-			end, { remap = true })
+			-- local directions = require("hop.hint").HintDirection
+			-- vim.keymap.set("", "f", function()
+			-- 	hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+			-- end, { remap = true })
+			-- vim.keymap.set("", "F", function()
+			-- 	hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+			-- end, { remap = true })
+			-- vim.keymap.set("", "t", function()
+			-- 	hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+			-- end, { remap = true })
+			-- vim.keymap.set("", "T", function()
+			-- 	hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+			-- end, { remap = true })
 			-- vim.api.nvim_set_keymap("n", "S", ":HopChar2<cr>", { silent = true })
 			vim.api.nvim_set_keymap("n", "s", ":HopWord<cr>", { silent = true })
 		end,
@@ -284,17 +308,37 @@ lvim.plugins = {
 		end,
 	},
 	{
-		"p00f/nvim-ts-rainbow",
+		"zbirenbaum/copilot.lua",
+		event = { "VimEnter" },
+		config = function()
+			vim.defer_fn(function()
+				require("copilot").setup({
+					suggestion = {
+						enabled = true,
+						auto_trigger = true,
+						keymap = {
+							accept = "<A-l>",
+							dismiss = "<A-;>",
+							next = "<A-j>",
+							prev = "<A-k>",
+						},
+					},
+				})
+			end, 100)
+		end,
 	},
+	-- { "p00f/nvim-ts-rainbow" },
 }
 
-lvim.builtin.treesitter.rainbow.enable = true
-lvim.builtin.treesitter.rainbow.max_file_lines = 5000
-lvim.builtin.treesitter.rainbow.colors = {
-	"Gold",
-	"Orchid",
-	"LightSkyBlue",
-}
+lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
+table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
+-- lvim.builtin.treesitter.rainbow.enable = true
+-- lvim.builtin.treesitter.rainbow.max_file_lines = 5000
+-- lvim.builtin.treesitter.rainbow.colors = {
+-- 	"Gold",
+-- 	"Orchid",
+-- 	"LightSkyBlue",
+-- }
 
 vim.api.nvim_exec(
 	[[
