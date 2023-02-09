@@ -12,7 +12,7 @@ an executable
 -- @param str the string to be trimmed
 local function trunc(str)
 	local length = #str
-	local max_len = 25
+	local max_len = 18
 	if length >= max_len then
 		return str:sub(1, max_len) .. "..."
 	end
@@ -317,10 +317,10 @@ lvim.plugins = {
 						enabled = true,
 						auto_trigger = true,
 						keymap = {
-							accept = "<A-l>",
-							dismiss = "<A-;>",
-							next = "<A-j>",
-							prev = "<A-k>",
+							accept = "<C-l>",
+							dismiss = "<C-;>",
+							next = "<C-j>",
+							prev = "<C-k>",
 						},
 					},
 				})
@@ -330,8 +330,8 @@ lvim.plugins = {
 	-- { "p00f/nvim-ts-rainbow" },
 }
 
-lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
-table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
+-- lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
+-- table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
 -- lvim.builtin.treesitter.rainbow.enable = true
 -- lvim.builtin.treesitter.rainbow.max_file_lines = 5000
 -- lvim.builtin.treesitter.rainbow.colors = {
