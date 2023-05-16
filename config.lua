@@ -229,4 +229,20 @@ lvim.plugins = {
 			marks.setup(opts)
 		end,
 	},
+	{
+		"mrjones2014/nvim-ts-rainbow",
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				rainbow = {
+					colors = {
+						"#ffd700", -- gold
+						"#da70d6", -- orchid
+						"#87cefa", -- light sky blue
+					},
+				},
+			})
+		end,
+	},
 }
+
+lvim.builtin.treesitter.rainbow.enable = true
