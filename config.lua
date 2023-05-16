@@ -64,7 +64,7 @@ local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	{ command = "prettierd" },
 	{ command = "stylua" },
-	{ command = "rustfmt", extra_args = { "--edition", "2018" } },
+	{ command = "rustfmt" },
 })
 
 local linters = require("lvim.lsp.null-ls.linters")
