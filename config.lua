@@ -76,6 +76,11 @@ lvim.builtin.which_key.mappings["H"] = {
 	w = { '<cmd>lua require("spectre").open_visual({select_word=true})<CR>' },
 }
 
+lvim.lsp.installer.setup.ensure_installed = { "tsserver", "rust_analyzer", "lua_ls" }
+require("lvim.lsp.manager").setup("tsserver")
+require("lvim.lsp.manager").setup("rust_analyzer")
+require("lvim.lsp.manager").setup("lua_ls")
+
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	{ command = "prettierd" },
