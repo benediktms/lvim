@@ -1,5 +1,7 @@
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
+vim.opt.foldmethod = "indent"
+vim.opt.foldlevel = 99
 
 lvim.transparent_window = true
 lvim.format_on_save = true
