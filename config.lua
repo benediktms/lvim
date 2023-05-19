@@ -39,6 +39,9 @@ lvim.builtin.lualine.sections.lualine_c = {
 	{ "filename", file_status = true, path = 1 },
 }
 
+lvim.builtin.nvimtree.setup.view.side = "right"
+lvim.builtin.nvimtree.setup.view.width = 40
+
 local _, actions = pcall(require, "telescope.actions")
 lvim.builtin.telescope.defaults.mappings = {
 	i = {
