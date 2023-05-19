@@ -66,6 +66,7 @@ lvim.builtin.which_key.vmappings["s"] = {
 lvim.builtin.which_key.mappings["o"] = {
 	name = "Other",
 	u = { "<cmd>UndotreeToggle<cr>", "Toggle undo tree" },
+	c = { "<cmd>TSContextToggle<cr>", "Toggle context" },
 }
 
 lvim.builtin.which_key.mappings["H"] = {
