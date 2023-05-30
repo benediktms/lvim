@@ -289,6 +289,7 @@ lvim.plugins = {
 						"#da70d6", -- orchid
 						"#87cefa", -- light sky blue
 					},
+					extended_mode = false,
 				},
 			})
 		end,
