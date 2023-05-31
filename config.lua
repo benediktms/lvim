@@ -106,7 +106,7 @@ lvim.builtin.which_key.mappings["H"] = {
 }
 
 lvim.lsp.installer.setup.ensure_installed = { "tsserver", "rust_analyzer", "lua_ls", "emmet_ls" }
--- require("lvim.lsp.manager").setup("tsserver")
+require("lvim.lsp.manager").setup("tsserver")
 -- require("lvim.lsp.manager").setup("rust_analyzer")
 require("lvim.lsp.manager").setup("lua_ls")
 require("lvim.lsp.manager").setup("emmet_ls")
@@ -362,6 +362,27 @@ lvim.plugins = {
 				},
 			}
 			require("spectre").setup(opts)
+		end,
+	},
+	{
+		"HiPhish/nvim-ts-rainbow2",
+		config = function()
+			local opts = {
+				rainbow = {
+					enable = true,
+					strategy = require("ts-rainbow").strategy.global,
+					-- hlgroups = {
+					-- 	"TSRainbowYellow",
+					-- 	"TSRainbowMagenta",
+					-- 	"TSRainbowBlue",
+					-- },
+					query = {
+						"rainbow-parens",
+						tsx = "rainbow-tags",
+					},
+				},
+			}
+			require("nvim-treesitter.configs").setup(opts)
 		end,
 	},
 }
