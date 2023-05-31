@@ -106,8 +106,8 @@ lvim.builtin.which_key.mappings["H"] = {
 }
 
 lvim.lsp.installer.setup.ensure_installed = { "tsserver", "rust_analyzer", "lua_ls", "emmet_ls" }
-require("lvim.lsp.manager").setup("tsserver")
-require("lvim.lsp.manager").setup("rust_analyzer")
+-- require("lvim.lsp.manager").setup("tsserver")
+-- require("lvim.lsp.manager").setup("rust_analyzer")
 require("lvim.lsp.manager").setup("lua_ls")
 require("lvim.lsp.manager").setup("emmet_ls")
 
@@ -224,6 +224,9 @@ lvim.plugins = {
 							checkOnSave = {
 								command = "clippy",
 							},
+							formatOnSave = {
+								command = "cargo fmt",
+							},
 						},
 					},
 				},
@@ -278,21 +281,6 @@ lvim.plugins = {
 				},
 			}
 			marks.setup(opts)
-		end,
-	},
-	{
-		"mrjones2014/nvim-ts-rainbow",
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				rainbow = {
-					colors = {
-						"#ffd700", -- gold
-						"#da70d6", -- orchid
-						"#87cefa", -- light sky blue
-					},
-					extended_mode = false,
-				},
-			})
 		end,
 	},
 	{
