@@ -5,6 +5,7 @@ vim.opt.foldlevel = 99
 
 lvim.transparent_window = true
 lvim.format_on_save = true
+lvim.colorscheme = "lunar"
 
 lvim.leader = "space"
 
@@ -62,7 +63,6 @@ lvim.builtin.lualine.sections.lualine_c = {
 	{ "filename", file_status = true, path = 1 },
 }
 
-lvim.builtin.nvimtree.setup.view.side = "right"
 lvim.builtin.nvimtree.setup.view.width = 40
 
 local _, actions = pcall(require, "telescope.actions")
@@ -105,9 +105,9 @@ lvim.builtin.which_key.mappings["H"] = {
 	w = { '<cmd>lua require("spectre").open_visual({select_word=true})<CR>' },
 }
 
-lvim.lsp.installer.setup.ensure_installed = { "tsserver", "rust_analyzer", "lua_ls", "emmet_ls" }
+lvim.lsp.installer.setup.ensure_installed = { "tsserver", "rust_analyzer", "lua_ls", "emmet_ls", "eslint" }
 require("lvim.lsp.manager").setup("tsserver")
--- require("lvim.lsp.manager").setup("rust_analyzer")
+require("lvim.lsp.manager").setup("eslint")
 require("lvim.lsp.manager").setup("lua_ls")
 require("lvim.lsp.manager").setup("emmet_ls")
 
@@ -123,6 +123,20 @@ linters.setup({
 	{ command = "eslint_d" },
 	{ command = "shellcheck" },
 })
+
+lvim.autocommands = {
+	{
+		{ "ColorScheme" },
+		{
+			pattern = "*",
+			callback = function()
+				vim.api.nvim_set_hl(0, "TSRainbowYellow", { fg = "#FFD700" })
+				vim.api.nvim_set_hl(0, "TSRainbowMagenta", { fg = "#DA70D6" })
+				vim.api.nvim_set_hl(0, "TSRainbowBlue", { fg = "#87CEFA" })
+			end,
+		},
+	},
+}
 
 lvim.plugins = {
 	{
@@ -234,6 +248,25 @@ lvim.plugins = {
 			rust_tools.setup(opts)
 		end,
 		ft = { "rust", "rs" },
+	},
+	{
+		"Saecki/crates.nvim",
+		event = { "BufRead Cargo.toml" },
+		config = function()
+			local status_ok, crates = pcall(require, "crates")
+			if not status_ok then
+				return
+			end
+
+			local opts = {
+				null_ls = {
+					enabled = true,
+					name = "crates.nvim",
+				},
+			}
+
+			crates.setup(opts)
+		end,
 	},
 	{ "mbbill/undotree" },
 	{
@@ -371,11 +404,11 @@ lvim.plugins = {
 				rainbow = {
 					enable = true,
 					strategy = require("ts-rainbow").strategy.global,
-					-- hlgroups = {
-					-- 	"TSRainbowYellow",
-					-- 	"TSRainbowMagenta",
-					-- 	"TSRainbowBlue",
-					-- },
+					hlgroups = {
+						"TSRainbowYellow",
+						"TSRainbowMagenta",
+						"TSRainbowBlue",
+					},
 					query = {
 						"rainbow-parens",
 						tsx = "rainbow-tags",
@@ -383,6 +416,20 @@ lvim.plugins = {
 				},
 			}
 			require("nvim-treesitter.configs").setup(opts)
+		end,
+	},
+	{
+		"nvim-tree/nvim-web-devicons",
+		config = function()
+			require("nvim-web-devicons").setup({
+				override = {
+					vue = {
+						icon = "󰡄",
+						color = "#42D392",
+						name = "Vue",
+					},
+				},
+			})
 		end,
 	},
 }
