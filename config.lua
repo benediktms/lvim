@@ -3,9 +3,8 @@ vim.opt.termguicolors = true
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 99
 
-lvim.transparent_window = true
 lvim.format_on_save = true
-lvim.colorscheme = "lunar"
+lvim.colorscheme = "tokyonight-moon"
 
 lvim.leader = "space"
 
@@ -47,6 +46,7 @@ local function switch_case()
 	end
 end
 
+lvim.builtin.lualine.options.theme = "tokyonight"
 lvim.builtin.lualine.sections.lualine_b = {
 	{
 		"branch",
@@ -62,8 +62,6 @@ lvim.builtin.lualine.sections.lualine_b = {
 lvim.builtin.lualine.sections.lualine_c = {
 	{ "filename", file_status = true, path = 1 },
 }
-
-lvim.builtin.nvimtree.setup.view.width = 40
 
 local _, actions = pcall(require, "telescope.actions")
 lvim.builtin.telescope.defaults.mappings = {
@@ -89,13 +87,28 @@ lvim.builtin.which_key.vmappings["s"] = {
 lvim.builtin.which_key.mappings["o"] = {
 	name = "Other",
 	u = { "<cmd>UndotreeToggle<cr>", "Toggle undo tree" },
-	x = { "<cmd>TSContextToggle<cr>", "Toggle context" },
 	c = {
 		function()
 			switch_case()
 		end,
 		"Switch case (camelCase/snake_case)",
 	},
+}
+
+lvim.builtin.which_key.mappings["x"] = {
+	name = "TS Context",
+	x = { "<cmd>TSContextToggle<cr>", "Toggle scrope context" },
+	t = { "<cmd>Twilight<cr>", "Toggle twilight" },
+}
+
+lvim.builtin.which_key.mappings["t"] = {
+	name = "Trouble Diagnostics",
+	t = { "<cmd>TroubleToggle<cr>", "trouble" },
+	w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace" },
+	d = { "<cmd>TroubleToggle document_diagnostics<cr>", "document" },
+	q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
+	l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
+	r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
 }
 
 lvim.builtin.which_key.mappings["H"] = {
@@ -140,12 +153,48 @@ lvim.autocommands = {
 
 lvim.plugins = {
 	{
-		"phaazon/hop.nvim",
-		event = "BufRead",
+		"ggandor/leap.nvim",
+		name = "leap",
 		config = function()
-			require("hop").setup()
-			vim.api.nvim_set_keymap("n", "s", ":HopWord<cr>", { silent = true })
+			local status_ok, leap = pcall(require, "leap")
+			if not status_ok then
+				return
+			end
+
+			leap.add_default_mappings()
 		end,
+	},
+	{ "folke/tokyonight.nvim" },
+	{
+		"folke/twilight.nvim",
+		config = function()
+			local opts = {
+				dimming = {
+					alpha = 0.25, -- amount of dimming
+					-- we try to get the foreground from the highlight groups or fallback color
+					color = { "Normal", "#ffffff" },
+					term_bg = "#000000", -- if guibg=NONE, this will be used to calculate text color
+					inactive = false, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
+				},
+				context = 10, -- amount of lines we will try to show around the current line
+				treesitter = true, -- use treesitter when available for the filetype
+				-- treesitter is used to automatically expand the visible text,
+				-- but you can further control the types of nodes that should always be fully expanded
+				expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+					-- "function_declaration",
+					"function",
+					"method",
+					"table",
+					"if_statement",
+				},
+				exclude = {}, -- exclude these filetypes
+			}
+			require("twilight").setup(opts)
+		end,
+	},
+	{
+		"folke/trouble.nvim",
+		cmd = "TroubleToggle",
 	},
 	{
 		"romgrk/nvim-treesitter-context",
@@ -269,53 +318,53 @@ lvim.plugins = {
 		end,
 	},
 	{ "mbbill/undotree" },
-	{
-		"chentoast/marks.nvim",
-		config = function()
-			local status_ok, marks = pcall(require, "marks")
-			if not status_ok then
-				return
-			end
+	-- {
+	-- 	"chentoast/marks.nvim",
+	-- 	config = function()
+	-- 		local status_ok, marks = pcall(require, "marks")
+	-- 		if not status_ok then
+	-- 			return
+	-- 		end
 
-			local opts = {
-				builtin_marks = {
-					".",
-					"'",
-					"<",
-					">",
-					"^",
-					"0",
-					"$",
-					"a",
-					"b",
-					"c",
-					"d",
-					"e",
-					"f",
-					"g",
-					"h",
-					"i",
-					"j",
-					"k",
-					"l",
-					"m",
-					"o",
-					"p",
-					"q",
-					"r",
-					"s",
-					"t",
-					"u",
-					"v",
-					"w",
-					"x",
-					"y",
-					"z",
-				},
-			}
-			marks.setup(opts)
-		end,
-	},
+	-- 		local opts = {
+	-- 			builtin_marks = {
+	-- 				".",
+	-- 				"'",
+	-- 				"<",
+	-- 				">",
+	-- 				"^",
+	-- 				"0",
+	-- 				"$",
+	-- 				"a",
+	-- 				"b",
+	-- 				"c",
+	-- 				"d",
+	-- 				"e",
+	-- 				"f",
+	-- 				"g",
+	-- 				"h",
+	-- 				"i",
+	-- 				"j",
+	-- 				"k",
+	-- 				"l",
+	-- 				"m",
+	-- 				"o",
+	-- 				"p",
+	-- 				"q",
+	-- 				"r",
+	-- 				"s",
+	-- 				"t",
+	-- 				"u",
+	-- 				"v",
+	-- 				"w",
+	-- 				"x",
+	-- 				"y",
+	-- 				"z",
+	-- 			},
+	-- 		}
+	-- 		marks.setup(opts)
+	-- 	end,
+	-- },
 	{
 		"nvim-pack/nvim-spectre",
 		config = function()
@@ -430,6 +479,33 @@ lvim.plugins = {
 					},
 				},
 			})
+		end,
+	},
+	{
+		"nvim-treesitter/playground",
+		config = function()
+			local opts = {
+				playground = {
+					enable = true,
+					disable = {},
+					updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+					persist_queries = false, -- Whether the query persists across vim sessions
+					keybindings = {
+						toggle_query_editor = "o",
+						toggle_hl_groups = "i",
+						toggle_injected_languages = "t",
+						toggle_anonymous_nodes = "a",
+						toggle_language_display = "I",
+						focus_language = "f",
+						unfocus_language = "F",
+						update = "R",
+						goto_node = "<cr>",
+						show_help = "?",
+					},
+				},
+			}
+
+			require("nvim-treesitter.configs").setup(opts)
 		end,
 	},
 }
