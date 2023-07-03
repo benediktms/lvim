@@ -51,6 +51,7 @@ M.config = function()
 					checkOnSave = {
 						enable = true,
 						command = "clippy",
+						extraArgs = { "--all", "--", "-W", "clippy::all" },
 					},
 				},
 			},
