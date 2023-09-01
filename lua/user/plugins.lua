@@ -14,7 +14,9 @@ M.config = function()
 				leap.add_default_mappings()
 			end,
 		},
+		{ "folke/zen-mode.nvim" },
 		{ "folke/tokyonight.nvim" },
+		{ "projekt0n/github-nvim-theme" },
 		{
 			"folke/twilight.nvim",
 			config = function()
@@ -181,6 +183,7 @@ M.config = function()
 				require("nvim-treesitter.configs").setup(opts)
 			end,
 		},
+
 		{
 			"nvim-tree/nvim-web-devicons",
 			config = function()
@@ -223,6 +226,10 @@ M.config = function()
 			end,
 		},
 		{ "NoahTheDuke/vim-just" },
+		{
+			"lervag/vimtex",
+			enabled = lvim.user.latex.enabled,
+		},
 	}
 end
 

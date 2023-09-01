@@ -17,6 +17,7 @@ M.config = function()
 			end,
 			"Switch case (camelCase/snake_case)",
 		},
+		z = { "<cmd>ZenMode<cr>", "Zen mode" },
 	}
 
 	lvim.builtin.which_key.mappings["x"] = {

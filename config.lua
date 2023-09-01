@@ -6,16 +6,17 @@ vim.opt.foldlevel = 99
 lvim.user = {}
 lvim.user.rust_programming = { enabled = true }
 lvim.user.gutter_marks = { enabled = true }
+lvim.user.latex = { enabled = true }
 
 local user = vim.env.USER
-if user and user == "benedikt" then
+if user and user == "benediktschnatterbeck" then
 	lvim.reload_config_on_save = true
 	require("user.features").config()
 	lvim.user.functions = require("user.functions")
 end
 
 lvim.format_on_save = true
-lvim.colorscheme = "tokyonight-moon"
+lvim.colorscheme = "github_dark_dimmed"
 
 lvim.leader = "space"
 
@@ -24,7 +25,7 @@ lvim.keys.insert_mode["<C-s>"] = "<Esc> :w<CR>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
-lvim.builtin.lualine.options.theme = "tokyonight"
+-- lvim.builtin.lualine.options.theme = "tokyonight"
 lvim.builtin.lualine.sections.lualine_b = {
 	{
 		"branch",
