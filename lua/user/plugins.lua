@@ -3,6 +3,9 @@ local M = {}
 M.config = function()
 	lvim.plugins = {
 		{
+			"LunarVim/darkplus.nvim",
+		},
+		{
 			"ggandor/leap.nvim",
 			name = "leap",
 			config = function()
@@ -229,18 +232,6 @@ M.config = function()
 		{
 			"lervag/vimtex",
 			enabled = lvim.user.latex.enabled,
-		},
-		{
-			"tpope/vim-dadbod",
-			enabled = lvim.user.db.enabled,
-		},
-		{
-			"kristijanhusak/vim-dadbod-ui",
-			enabled = lvim.user.db.enabled,
-		},
-		{
-			"kristijanhusak/vim-dadbod-completion",
-			enabled = lvim.user.db.enabled,
 		},
 	}
 end

@@ -18,7 +18,7 @@ if user and user == "benediktschnatterbeck" then
 end
 
 lvim.format_on_save = true
-lvim.colorscheme = "github_dark_dimmed"
+lvim.colorscheme = "darkplus"
 
 lvim.leader = "space"
 
