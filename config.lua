@@ -29,8 +29,9 @@ lvim.keys.normal_mode["<C-s>"] = ":w<CR>"
 lvim.keys.insert_mode["<C-s>"] = "<Esc> :w<CR>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.keys.normal_mode["<C-j>"] = "}"
+lvim.keys.normal_mode["<C-k>"] = "{"
 
--- lvim.builtin.lualine.options.theme = "tokyonight"
 lvim.builtin.lualine.sections.lualine_b = {
 	{
 		"branch",
@@ -60,6 +61,8 @@ lvim.builtin.telescope.defaults.mappings = {
 		["<C-k>"] = actions.move_selection_previous,
 	},
 }
+
+lvim.builtin.terminal.open_mapping = "<C-t>"
 
 require("user.which-key").config()
 
