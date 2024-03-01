@@ -20,7 +20,7 @@ if user and user == "benediktschnatterbeck" then
 	lvim.user.functions = require("user.functions")
 end
 
-lvim.format_on_save = true
+lvim.format_on_save = false
 lvim.colorscheme = "darkplus"
 
 lvim.leader = "space"
@@ -71,13 +71,14 @@ require("lvim.lsp.manager").setup("emmet_ls")
 
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
-	{ command = "prettierd" },
+	-- { command = "prettierd" },
+	{ command = "prettier" },
 	{ command = "stylua" },
 })
 
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
-	{ command = "eslint_d" },
+	-- { command = "eslint_d" },
 	{ command = "shellcheck" },
 })
 
