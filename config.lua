@@ -10,6 +10,9 @@ lvim.user.latex = { enabled = true }
 lvim.user.db = { enabled = true }
 lvim.transparent_window = true
 
+-- remove once https://github.com/LunarVim/LunarVim/issues/4468 is merged
+lvim.builtin.treesitter.context_commentstring = nil
+
 local user = vim.env.USER
 if user and user == "benediktschnatterbeck" then
 	lvim.reload_config_on_save = true
