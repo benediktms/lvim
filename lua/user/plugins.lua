@@ -166,28 +166,6 @@ M.config = function()
 			end,
 		},
 		{
-			"HiPhish/nvim-ts-rainbow2",
-			config = function()
-				local opts = {
-					rainbow = {
-						enable = true,
-						strategy = require("ts-rainbow").strategy.global,
-						hlgroups = {
-							"TSRainbowYellow",
-							"TSRainbowMagenta",
-							"TSRainbowBlue",
-						},
-						query = {
-							"rainbow-parens",
-							tsx = "rainbow-tags",
-						},
-					},
-				}
-				require("nvim-treesitter.configs").setup(opts)
-			end,
-		},
-
-		{
 			"nvim-tree/nvim-web-devicons",
 			config = function()
 				require("nvim-web-devicons").setup({
@@ -233,6 +211,7 @@ M.config = function()
 			"lervag/vimtex",
 			enabled = lvim.user.latex.enabled,
 		},
+		{ "fladson/vim-kitty" },
 	}
 end
 

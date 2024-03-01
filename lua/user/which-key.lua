@@ -18,7 +18,6 @@ M.config = function()
 			"Switch case (camelCase/snake_case)",
 		},
 		z = { "<cmd>ZenMode<cr>", "Zen mode" },
-		d = { "<cmd>DBUI<cr>", "Toggle DB UI" },
 	}
 
 	lvim.builtin.which_key.mappings["x"] = {
