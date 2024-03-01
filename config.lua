@@ -85,20 +85,4 @@ linters.setup({
 	{ command = "shellcheck" },
 })
 
-lvim.autocommands = {
-	{
-		{ "ColorScheme" },
-		{
-			pattern = "*",
-			callback = function()
-				vim.api.nvim_set_hl(0, "TSRainbowYellow", { fg = "#FFD700" })
-				vim.api.nvim_set_hl(0, "TSRainbowMagenta", { fg = "#DA70D6" })
-				vim.api.nvim_set_hl(0, "TSRainbowBlue", { fg = "#87CEFA" })
-			end,
-		},
-	},
-}
-
 require("user.plugins").config()
-
-lvim.builtin.treesitter.rainbow.enable = true
