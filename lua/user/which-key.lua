@@ -22,7 +22,7 @@ M.config = function()
 
 	lvim.builtin.which_key.mappings["x"] = {
 		name = "TS Context",
-		x = { "<cmd>TSContextToggle<cr>", "Toggle scrope context" },
+		x = { "<cmd>TSContextToggle<cr>", "Toggle scope context" },
 		t = { "<cmd>Twilight<cr>", "Toggle twilight" },
 	}
 

@@ -29,8 +29,6 @@ lvim.keys.normal_mode["<C-s>"] = ":w<CR>"
 lvim.keys.insert_mode["<C-s>"] = "<Esc> :w<CR>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
-lvim.keys.normal_mode["<C-j>"] = "}"
-lvim.keys.normal_mode["<C-k>"] = "{"
 
 lvim.builtin.lualine.sections.lualine_b = {
 	{
